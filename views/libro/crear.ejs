@@ -1,0 +1,65 @@
+<%- include('../compartido/estilos-generales/estilos-generales-compartidos')%>
+
+
+<%const existeLibro = typeof libro !== 'undefined'%>
+
+<%let existeNombreL = typeof nombreLibro !== 'undefined'%>
+<%let existeAutorL = typeof nombreAutor !== 'undefined'%>
+<%let existePrecioL = typeof precio !== 'undefined'%>
+<%let existeEditorialL = typeof editorial !=='undefined'%>
+<%let existeFechaL = typeof fechaPublicacion!== 'undefined'%>
+
+<h1><%= existeLibro?'EDITAR':'CREAR'%> LIBRO</h1>
+<!-- Setear variables-->
+<%if(existeLibro){%>
+    <%existeNombreL  = true%>
+    <%existeAutorL  = true%>
+    <%existePrecioL  = true%>
+    <%existeEditorialL  = true%>
+    <%existeFechaL  = true%>
+
+    <%nombreLibro  = libro.nombreLibro%>
+    <%nombreAutor = libro.nombreAutor%>
+    <%precio = libro.precio%>
+    <%editorial = libro.editorial%>
+    <%fechaPublicacion = libro.fechaPublicacion%>
+<%}%>
+
+
+<% if (typeof error !== 'undefined'){%>
+<p>MENSAJE ERROR: <%= error %></p>
+<%}%>
+
+<form action="<%= existeLibro ? '/libro/editarDesdeVista/' +libro.id : '/libro/crearDesdeVista' %>"
+      method="POST">
+
+    <label for="nombreL">Nombre Libro:</label>
+    <input id="nombreL" type="text" name="nombreLibro" value="<%= existeNombreL ? nombreLibro : ' ' %>">
+
+    <br>
+    <label for="autorL">Nombre Autor: </label>
+    <input id="autorL" type="text" name="nombreAutor" value="<%= existeAutorL ? nombreAutor : ' ' %>">
+
+    <br>
+    <label for="precioL">Precio: </label>
+    <input id="precioL" type="text" name="precio" value="<%= existePrecioL? precio : ' ' %>">
+
+    <br>
+    <label for="editorialL">Editorial: </label>
+    <input id="editorialL" type="text" name="editorial" value="<%= existeEditorialL ? editorial : '' %>">
+
+    <br>
+    <label for="fechaL">Fecha Publicacion: </label>
+    <input id="fechaL" type="text" name="fechaPublicacion" value="<%= existeFechaL ? fechaPublicacion : '' %>">
+    <br>
+
+    <button type="submit"> SUBMIT</button>
+    <button type="reset"> RESET</button>
+
+    <a href="/libro/vista/principal">
+        <button type="button"> ATRAS</button>
+    </a>
+
+
+</form>
+
